@@ -11,6 +11,20 @@
       --text: #1f2937;
       --muted: #6b7280;
       --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --border: #e5e7eb;
+      --shadow: rgba(15, 23, 42, 0.08);
+    }
+
+    html[data-tema="oscuro"] {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+      --border: #334155;
+      --shadow: rgba(0, 0, 0, 0.45);
     }
 
     * {
@@ -28,16 +42,19 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
     .card {
       background: var(--card);
       border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 10px 30px var(--shadow);
       padding: 48px 40px;
       max-width: 560px;
       width: 100%;
       text-align: center;
+      position: relative;
+      transition: background 0.25s ease, box-shadow 0.25s ease;
     }
 
     h1 {
@@ -63,11 +80,27 @@
     }
 
     button:hover {
-      background: #1d4ed8;
+      background: var(--accent-hover);
     }
 
     button:active {
       transform: scale(0.98);
+    }
+
+    #btn-tema {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+    }
+
+    #btn-tema:hover {
+      background: var(--border);
     }
 
     #contador {
@@ -80,6 +113,7 @@
 </head>
 <body>
   <main class="card">
+    <button id="btn-tema" type="button" aria-pressed="false">Modo oscuro</button>
     <h1>Hola, mundo</h1>
     <p>Esta es una página HTML sencilla de ejemplo con estilos básicos y un poco de interactividad.</p>
     <button id="btn">Haz clic aquí</button>
@@ -90,11 +124,44 @@
     let clics = 0;
     const boton = document.getElementById("btn");
     const contador = document.getElementById("contador");
+    const botonTema = document.getElementById("btn-tema");
+    const CLAVE_TEMA = "tema-preferido";
 
     boton.addEventListener("click", () => {
       clics += 1;
       contador.textContent = `Clics: ${clics}`;
     });
+
+    function aplicarTema(tema) {
+      const esOscuro = tema === "oscuro";
+      document.documentElement.setAttribute("data-tema", esOscuro ? "oscuro" : "claro");
+      botonTema.textContent = esOscuro ? "Modo claro" : "Modo oscuro";
+      botonTema.setAttribute("aria-pressed", String(esOscuro));
+    }
+
+    botonTema.addEventListener("click", () => {
+      const actual = document.documentElement.getAttribute("data-tema");
+      const nuevo = actual === "oscuro" ? "claro" : "oscuro";
+      aplicarTema(nuevo);
+      try {
+        localStorage.setItem(CLAVE_TEMA, nuevo);
+      } catch (e) {
+        /* almacenamiento no disponible */
+      }
+    });
+
+    let temaInicial = "claro";
+    try {
+      const guardado = localStorage.getItem(CLAVE_TEMA);
+      if (guardado) {
+        temaInicial = guardado;
+      } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        temaInicial = "oscuro";
+      }
+    } catch (e) {
+      /* almacenamiento no disponible */
+    }
+    aplicarTema(temaInicial);
   </script>
 </body>
 </html>
