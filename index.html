@@ -70,6 +70,22 @@
       transform: scale(0.98);
     }
 
+    button.secundario {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+
+    button.secundario:hover {
+      background: #cbd5e1;
+    }
+
+    .acciones {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
     #contador {
       display: block;
       margin-top: 16px;
@@ -82,18 +98,31 @@
   <main class="card">
     <h1>Hola, mundo</h1>
     <p>Esta es una página HTML sencilla de ejemplo con estilos básicos y un poco de interactividad.</p>
-    <button id="btn">Haz clic aquí</button>
+    <div class="acciones">
+      <button id="btn">Haz clic aquí</button>
+      <button id="btn-reset" class="secundario">Reiniciar</button>
+    </div>
     <span id="contador">Clics: 0</span>
   </main>
 
   <script>
     let clics = 0;
     const boton = document.getElementById("btn");
+    const botonReset = document.getElementById("btn-reset");
     const contador = document.getElementById("contador");
+
+    function pintarContador() {
+      contador.textContent = `Clics: ${clics}`;
+    }
 
     boton.addEventListener("click", () => {
       clics += 1;
-      contador.textContent = `Clics: ${clics}`;
+      pintarContador();
+    });
+
+    botonReset.addEventListener("click", () => {
+      clics = 0;
+      pintarContador();
     });
   </script>
 </body>
