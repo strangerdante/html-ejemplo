@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Página Sencilla</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: #f5f7fa;
+      color: #1f2933;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      opacity: 0.9;
+    }
+
+    main {
+      flex: 1;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: #4f46e5;
+    }
+
+    ul {
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    button {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.65rem 1.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+      background: #4338ca;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    #contador {
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hola, mundo 👋</h1>
+    <p>Una página HTML sencilla creada con AURA</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Sobre esta página</h2>
+      <p>
+        Este es un ejemplo básico de documento HTML con estilos CSS incluidos
+        y un pequeño script en JavaScript.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Características</h2>
+      <ul>
+        <li>Diseño responsive</li>
+        <li>Estilos en un solo archivo</li>
+        <li>Interactividad con JavaScript</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Prueba el botón</h2>
+      <p>
+        Pulsa el botón para incrementar el contador:
+        <span id="contador">0</span>
+      </p>
+      <br />
+      <button id="btn-contador">Incrementar</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="anio"></span> Mi Página Sencilla</p>
+  </footer>
+
+  <script>
+    let contador = 0;
+    const spanContador = document.getElementById("contador");
+
+    document.getElementById("btn-contador").addEventListener("click", () => {
+      contador += 1;
+      spanContador.textContent = contador;
+    });
+
+    document.getElementById("anio").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
