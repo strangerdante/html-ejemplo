@@ -91,6 +91,16 @@
       margin-left: 0.5rem;
     }
 
+    button.secundario {
+      background: #e5e7eb;
+      color: #1f2933;
+      margin-left: 0.5rem;
+    }
+
+    button.secundario:hover {
+      background: #d1d5db;
+    }
+
     footer {
       text-align: center;
       padding: 1.5rem;
@@ -131,6 +141,7 @@
       </p>
       <br />
       <button id="btn-contador">Incrementar</button>
+      <button id="btn-reset" class="secundario">Reiniciar</button>
     </section>
   </main>
 
@@ -144,6 +155,11 @@
 
     document.getElementById("btn-contador").addEventListener("click", () => {
       contador += 1;
+      spanContador.textContent = contador;
+    });
+
+    document.getElementById("btn-reset").addEventListener("click", () => {
+      contador = 0;
       spanContador.textContent = contador;
     });
 
